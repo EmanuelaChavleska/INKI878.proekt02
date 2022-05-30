@@ -1,0 +1,90 @@
+#include <vector>
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+// Kreiranje na struktura Covek
+struct Covek {
+int redbroj;
+string ime;
+float poeni;
+
+// Funkcija za sortiranje na poeni
+void sortPoeni(vector<float>& poenii, vector<string>& imee,  vector<int>& redenbroj){
+
+float temp;
+string iTemp;
+
+for(int i = 0; i < poenii.size(); i++) {
+   for(int j = i+1; j < poenii.size(); j++)
+   {
+      if(poenii[j] > poenii[i]) {
+         temp = poenii[i];
+         poenii[i] = poenii[j];
+         poenii[j] = temp;
+
+        iTemp = imee[i];
+        imee[i] = imee[j];
+        imee[j] = iTemp;
+      };
+   };
+     };
+
+    //Pecatenje na sortiranata lista
+    int k;
+    vector<float>::iterator it;
+      while (k < redenbroj.size()){
+            for ( it = poenii.begin(); it != poenii.end(); ++it ) {
+            cout << redenbroj[k] << ". " << imee[k] << " --> " << *it << " poeni\n";
+            k++;
+      };
+};
+};
+};
+int main()
+{
+
+    // Popolnuvanje na strukturata i smestuvanje vo vektor
+    vector<Covek> c1 = {
+    {1, "Emanuela Chavleska" , 70.4},
+    {2, "Angela Angeleska" , 80},
+    {3, "Marija Mitreska", 52.8},
+    {4, "Marko Markoski", 62},
+    {5, "Ivan Ivanoski", 90.2},
+    {6, "Monika Krsteska", 47.05},
+    {7, "Ile Ilieski", 77},
+    };
+
+    vector<Covek> covek ( c1.begin(), c1.end() );
+     vector<float> poenii;
+     vector<string> imee;
+     vector<int> redenbroj;
+
+    //Pecatenje na sodrzinata od vektorot onaka kako sto e vnesena
+    for (auto &n : covek ) {
+      cout << n.redbroj << ". " << n.ime << " --> " << n.poeni << " poeni " <<  endl;
+    poenii.emplace_back(n.poeni);
+    imee.emplace_back(n.ime);
+    redenbroj.emplace_back(n.redbroj);
+    };
+
+     Covek c;
+     cout << "\n************SORTIRANA LISTA************\n\n";
+     c.sortPoeni(poenii, imee, redenbroj);
+
+    fstream file;
+    file.open("INKI878EmanuelaChavleska.txt", ios::out);
+    if (file.is_open()){
+       int k;
+    vector<float>::iterator it;
+      while (k < redenbroj.size()){
+            for ( it = poenii.begin(); it != poenii.end(); ++it ) {
+            file << redenbroj[k] << ". " << imee[k] << " --> " << *it << " poeni\n";
+            k++;
+      };
+
+};
+ file.close();
+    }
+    return 0;
+}
